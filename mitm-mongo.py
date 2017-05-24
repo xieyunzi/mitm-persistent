@@ -2,8 +2,11 @@
 
 from mitmproxy import http
 import pymongo
+from config import cfg_mongo
 
-collection = pymongo.MongoClient('localhost', 27017).mitm.page
+collection = pymongo.MongoClient(cfg_mongo['host'], cfg_mongo['port']) \
+    .get_database(cfg_mongo['database']) \
+    .get_collection('page')
 
 
 def response(flow: http.HTTPFlow) -> None:

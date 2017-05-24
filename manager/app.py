@@ -5,9 +5,21 @@ from flask import render_template
 import pymongo
 import base64
 
+import yaml
+import os
+
 app = Flask(__name__)
 
-collection = pymongo.MongoClient('localhost', 27017).mitm.page
+# https://stackoverflow.com/questions/8299270/ultimate-answer-to-relative-python-imports/8300343#8300343
+# yaml config
+with open(os.path.dirname(os.path.realpath(__file__)) + '/..' '/config.yml') as yamlfile:
+    cfg = yaml.load(yamlfile)
+    cfg_mongo = cfg['mongo']
+
+# mongo db
+collection = pymongo.MongoClient(cfg_mongo['host'], cfg_mongo['port']) \
+    .get_database(cfg_mongo['database']) \
+    .get_collection('page')
 
 
 def find_images(mongo_collection, start=0, size=20):
