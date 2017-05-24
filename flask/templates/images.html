@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>images</title>
+    <meta charset="UTF-8">
+    <style>
+        .mongo-image {
+            max-height: 10em;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+{% for img in images %}
+<div>
+    <img src="data:{{img['contentType']}};base64,{{img['imageBase64']}}" id="{{img['id']}}" class="mongo-image">
+</div>
+{% endfor %}
+</body>
+
+</html>
