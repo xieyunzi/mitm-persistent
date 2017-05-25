@@ -13,10 +13,11 @@ def response(flow: http.HTTPFlow) -> None:
     data = {
         'request:url': flow.request.url,
         'request:method': flow.request.method,
+        'request:scheme': flow.request.scheme,
+        'request:http_version': flow.request.http_version,
         'request:host': flow.request.host,
         'request:port': flow.request.port,
         'request:path': flow.request.path,
-        'request:http_version': flow.request.http_version,
         'request:headers': flow.request.headers,
         'request:content': flow.request.get_content(),
         'request:timestamp_start': flow.request.timestamp_start,

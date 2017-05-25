@@ -29,7 +29,11 @@ def find_images(mongo_collection, start=0, size=20):
             'contentType': c['response:headers']['Content-Type'].strip(),
             'imageBase64': base64.b64encode(c['response:content']).decode('utf-8').strip(),
         },
-        mongo_collection.find({'response:headers.Content-Type': {'$regex': '^image'}}).skip(start).limit(size)
+        mongo_collection
+            .find({'response:headers.Content-Type': {'$regex': '^image'}})
+            .sort([('_id', pymongo.DESCENDING)])
+            .skip(start)
+            .limit(size)
     ))
 
 
